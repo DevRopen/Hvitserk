@@ -1,11 +1,11 @@
-.. image:: /static/cover.jpg
+.. image:: https://raw.githubusercontent.com/DevRopen/Hvitserk/refs/heads/main/static/cover.jpg
   :width: 700
   :alt: Alternative text
 
 .. image:: https://img.shields.io/pypi/v/Hvitserk.svg
     :alt: PyPI-Server
     :target: https://pypi.org/project/Hvitserk/
-.. image:: https://github.com/DevRopen/Hvitserk/actions/workflows/ci.yml/badge.svg
+.. image:: https://github.com/DevRopen/Hvitserk/actions/workflows/ci.yml/badge.svg?branch=main
     :alt: Build Status
     :target: https://github.com/DevRopen/Hvitserk/actions/workflows/ci.yml
 
