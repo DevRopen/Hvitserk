@@ -1,0 +1,240 @@
+# MIT License
+#
+# Copyright (c) 2022 Clivern
+#
+# This software is licensed under the MIT License. The full text of the license
+# is provided below.
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+
+# Labels Configuration
+# This section defines the labels used for categorizing issues and pull requests in the repository.
+# Each label has a name, description, and color to visually distinguish it in the GitHub interface.
+labels:
+  # Bug Label
+  # Used for issues that report errors, crashes, or unexpected behavior in the project.
+  - name: bug
+    description: Something isn't working
+    color: fc2929  # Bright red color
+
+  # Enhancement Label
+  # Applied to issues or pull requests that suggest improvements or new features.
+  - name: enhancement
+    description: New feature or request
+    color: 84b6eb  # Light blue color
+
+  # Help Wanted Label
+  # Indicates issues where the project maintainers are seeking assistance from the community.
+  - name: help wanted
+    description: Extra attention is needed
+    color: 008672  # Dark cyan color
+
+  # Question Label
+  # Used for issues that are queries or require clarification rather than reporting problems or suggesting changes.
+  - name: question
+    description: Further information is requested
+    color: cc317c  # Purple color
+
+  # Stale Label
+  # Applied to issues or pull requests that have been inactive for a certain period.
+  - name: stale
+    description: No recent activity on this issue or pull request
+    color: fbca04  # Yellow color
+
+  # Pinned Label
+  # Used for issues or pull requests that should remain at the top of the list and not be marked as stale.
+  - name: pinned
+    description: This issue or pull request is pinned for importance
+    color: 0052cc  # Dark blue color
+
+  # Security Label
+  # Applied to issues or pull requests related to security concerns or vulnerabilities.
+  - name: security
+    description: Addresses a security concern or vulnerability
+    color: d93f0b  # Dark orange color
+
+  # Triaged Label
+  # Applied to issues that have been automatically categorized by the triage system.
+  - name: triaged
+    description: This issue has been automatically triaged
+    color: 0e8a16  # Green color
+
+
+plugins:
+  # #############
+  # Free Plugins
+  # #############
+  # The auto_triage_v1 plugin automatically applies labels to new issues based on their content.
+  # It scans the issue title and body for the specified terms and applies the corresponding label.
+  # This helps in quickly categorizing and prioritizing issues without manual intervention.
+  # The 'enabled' flag allows easy activation/deactivation of the plugin without removing the configuration.
+  auto_triage_v1:
+    # Determines whether the auto-triage functionality is active
+    enabled: true
+
+    # Determines whether the ticket/PR is triaged
+    triagedLabel: triaged
+
+    # Defines the rules for automatic labeling of issues
+    issues:
+      # Each rule specifies a label and associated terms
+      - label: bug
+        # If any of these terms are found in the issue title or body,
+        # the "bug" label will be applied
+        terms:
+          - "error"
+          - "crash"
+          - "broken"
+          - "fix"
+
+      - label: enhancement
+        # These terms trigger the "enhancement" label
+        terms:
+          - "feature request"
+          - "improvement"
+          - "enhance"
+
+      - label: help wanted
+        # These terms indicate that help is needed and will apply the "help wanted" label
+        terms:
+          - "help needed"
+          - "assistance required"
+          - "looking for contributors"
+
+      - label: question
+        # These phrases suggest that the issue is a question
+        terms:
+          - "how to"
+          - "is it possible"
+          - "can someone explain"
+
+    # Defines the rules for automatic labeling of pulls
+    pulls:
+      # Each rule specifies a label and associated terms
+      - label: bug
+        # If any of these terms are found in the issue title or body,
+        # the "bug" label will be applied
+        terms:
+          - "error"
+          - "crash"
+          - "broken"
+          - "fix"
+
+      - label: enhancement
+        # These terms trigger the "enhancement" label
+        terms:
+          - "feature request"
+          - "improvement"
+          - "enhance"
+
+      - label: help wanted
+        # These terms indicate that help is needed and will apply the "help wanted" label
+        terms:
+          - "help needed"
+          - "assistance required"
+          - "looking for contributors"
+
+      - label: question
+        # These phrases suggest that the issue is a question
+        terms:
+          - "how to"
+          - "is it possible"
+          - "can someone explain"
+
+  # The stale plugin helps manage inactive issues and pull requests
+  # It can automatically label, close, or perform other actions on stale items
+  stale_v1:
+    # Determines whether the stale plugin is active
+    enabled: true
+
+    # Configuration for stale issues
+    issues:
+      # Number of days of inactivity before an issue becomes stale
+      daysUntilStale: 60
+      # Number of days of inactivity before a stale issue is closed
+      daysUntilClose: 7
+      # Label to use when marking an issue as stale
+      staleLabel: "stale"
+      # Comment to post when marking an issue as stale
+      markComment: >
+        This issue has been automatically marked as stale because it has not had
+        recent activity. It will be closed if no further activity occurs. Thank you
+        for your contributions.
+      # Comment to post when closing a stale issue
+      closeComment: >
+        This issue has been automatically closed due to inactivity. Please reopen
+        if this issue is still relevant.
+
+    # Configuration for stale pull requests
+    pulls:
+      # Number of days of inactivity before a pull request becomes stale
+      daysUntilStale: 30
+      # Number of days of inactivity before a stale pull request is closed
+      daysUntilClose: 7
+      # Label to use when marking a pull request as stale
+      staleLabel: "stale"
+      # Comment to post when marking a pull request as stale
+      markComment: >
+        This pull request has been automatically marked as stale because it has not had
+        recent activity. It will be closed if no further activity occurs. Thank you
+        for your contributions.
+      # Comment to post when closing a stale pull request
+      closeComment: >
+        This pull request has been automatically closed due to inactivity. Please reopen
+        if these changes are still relevant.
+
+    # List of labels that exempt an issue or pull request from being marked as stale
+    exemptLabels:
+      - "pinned"
+      - "security"
+
+  # The plugin automatically close PRs based on certain conditions
+  auto_close_pr_v1:
+    # Determines whether the auto close plugin is active
+    enabled: false
+
+  # The plugin automatically merge PRs that meet certain criteria,
+  # such as passing all checks and receiving approvals
+  auto_merge_v1:
+    enabled: false
+
+  # The plugin assign reviewers to PRs based on the files changed
+  # and team members' expertise
+  auto_assign_reviewer_v1:
+    enabled: false
+
+
+  # ###############
+  # Premium plugins
+  # ###############
+  # The plugin automatically generate PR descriptions including
+  # summary, code walkthrough, and type of changes
+  auto_ai_description_generator_v1:
+    enabled: false
+
+  # The plugin provides automated feedback on PRs, including security issues,
+  # test coverage, and code quality suggestions
+  auto_ai_review_v1:
+    enabled: false
+
+  # The plugin automatically respond to github issues using AI.
+  # It can add project specific data to the context
+  auto_ai_respond_v1:
+    enabled: false
