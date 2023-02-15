@@ -53,7 +53,9 @@ class StaleV1Plugin:
         self._logger.info(f"Running Stale V1 Plugin for repository: {self._repo_name}")
 
         if not self._stale_rules.enabled:
-            self._logger.info("Stale rules are not enabled. Skipping.")
+            self._logger.info(
+                f"Stale rules are not enabled for {self._repo_name}. Skipping."
+            )
             return
 
         self._process_issues()
@@ -63,6 +65,8 @@ class StaleV1Plugin:
         """Process open issues in the repository."""
         issues = self._issue.get_issues(self._repo_name, state="open")
 
+        self._logger.info(f"Process open issues for repository: {self._repo_name}")
+
         for issue in issues:
             # Only process if it's not a pull request
             if issue.pull_request is None:
@@ -71,6 +75,10 @@ class StaleV1Plugin:
     def _process_pull_requests(self):
         """Process open pull requests in the repository."""
         pulls = self._issue.get_issues(self._repo_name, state="open")
+
+        self._logger.info(
+            f"Process open pull requests for repository: {self._repo_name}"
+        )
 
         for pull in pulls:
             # Only process if it is a pull request

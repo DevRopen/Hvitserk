@@ -39,8 +39,14 @@ class AutoTriageV1Plugin:
 
     def run(self):
         """Run the Plugin"""
+        self._logger.info(
+            f"Running Auto Triage V1 Plugin for repository: {self._repo_name}"
+        )
+
         if not self._plugin_rules.enabled:
-            self._logger.info("Auto Triage V1 Plugin is disabled. Skipping.")
+            self._logger.info(
+                f"Auto Triage V1 Plugin is disabled for {self._repo_name}. Skipping."
+            )
             return True
 
         self._process_items("issues")
@@ -70,6 +76,9 @@ class AutoTriageV1Plugin:
 
             # Skip if the item has already been triaged
             if self._plugin_rules.triagedLabel in item_labels:
+                self._logger.info(
+                    f"Skip triaged {item_type[:-1]} #{item_number} in repository {self._repo_name}"
+                )
                 continue
 
             labels_to_add = []
@@ -94,3 +103,7 @@ class AutoTriageV1Plugin:
                     self._logger.error(
                         f"Failed to add labels {labels_to_add} to {item_type[:-1]} #{item_number} in repository {self._repo_name}: {str(e)}"
                     )
+            else:
+                self._logger.info(
+                    f"{item_type[:-1]} #{item_number} in repository {self._repo_name} doesn't have any known terms, Skipping triage"
+                )
