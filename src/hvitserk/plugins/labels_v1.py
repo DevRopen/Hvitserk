@@ -30,31 +30,28 @@ from hvitserk.util import Logger
 class LabelsV1Plugin:
     """A plugin for synchronizing labels in a repository."""
 
-    def __init__(self, app, repo_name, cfg_labels, logger=None):
-        """
-        Initialize the LabelsV1Plugin.
-
-        Args:
-            app: The application context.
-            repo_name: The name of the repository.
-            cfg_labels: Configuration labels to sync with the repository.
-            logger: Logger instance for logging messages (optional).
-        """
+    def __init__(self, app, repo_name, plugin_rules, logger=None):
         self._app = app
         self._label = Label(app)
         self._repo_name = repo_name
-        self._cfg_labels = cfg_labels
+        self._plugin_rules = plugin_rules
         self._logger = Logger().get_logger(__name__) if logger is None else logger
 
     def run(self):
-        """Execute the plugin to synchronize labels with the repository."""
+        """Run the Plugin"""
+        if not self._plugin_rules.enabled:
+            self._logger.info(
+                f"Labels V1 Plugin is disabled for {self._repo_name}. Skipping."
+            )
+            return True
+
         gh_labels = self._label.get_labels(self._repo_name)
         gh_label_names = {label.name: label for label in gh_labels}
 
         self._logger.info(f"Start labels sync for repository {self._repo_name}")
 
         # Synchronize labels based on configuration
-        for cfg_label in self._cfg_labels:
+        for cfg_label in self._plugin_rules.labels:
             if cfg_label.name in gh_label_names:
                 # Update existing label properties if necessary
                 gh_label = gh_label_names[cfg_label.name]

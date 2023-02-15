@@ -23,64 +23,63 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-
-# Labels Configuration
-# This section defines the labels used for categorizing issues and pull requests in the repository.
-# Each label has a name, description, and color to visually distinguish it in the GitHub interface.
-labels:
-  # Bug Label
-  # Used for issues that report errors, crashes, or unexpected behavior in the project.
-  - name: bug
-    description: Something isn't working
-    color: fc2929  # Bright red color
-
-  # Enhancement Label
-  # Applied to issues or pull requests that suggest improvements or new features.
-  - name: enhancement
-    description: New feature or request
-    color: 84b6eb  # Light blue color
-
-  # Help Wanted Label
-  # Indicates issues where the project maintainers are seeking assistance from the community.
-  - name: help wanted
-    description: Extra attention is needed
-    color: 008672  # Dark cyan color
-
-  # Question Label
-  # Used for issues that are queries or require clarification rather than reporting problems or suggesting changes.
-  - name: question
-    description: Further information is requested
-    color: cc317c  # Purple color
-
-  # Stale Label
-  # Applied to issues or pull requests that have been inactive for a certain period.
-  - name: stale
-    description: No recent activity on this issue or pull request
-    color: fbca04  # Yellow color
-
-  # Pinned Label
-  # Used for issues or pull requests that should remain at the top of the list and not be marked as stale.
-  - name: pinned
-    description: This issue or pull request is pinned for importance
-    color: 0052cc  # Dark blue color
-
-  # Security Label
-  # Applied to issues or pull requests related to security concerns or vulnerabilities.
-  - name: security
-    description: Addresses a security concern or vulnerability
-    color: d93f0b  # Dark orange color
-
-  # Triaged Label
-  # Applied to issues that have been automatically categorized by the triage system.
-  - name: triaged
-    description: This issue has been automatically triaged
-    color: 0e8a16  # Green color
-
-
 plugins:
   # #############
   # Free Plugins
   # #############
+
+  labels_v1:
+    enabled: true
+
+    labels:
+      # Bug Label
+      # Used for issues that report errors, crashes, or unexpected behavior in the project.
+      - name: bug
+        description: Something isn't working
+        color: fc2929  # Bright red color
+
+      # Enhancement Label
+      # Applied to issues or pull requests that suggest improvements or new features.
+      - name: enhancement
+        description: New feature or request
+        color: 84b6eb  # Light blue color
+
+      # Help Wanted Label
+      # Indicates issues where the project maintainers are seeking assistance from the community.
+      - name: help wanted
+        description: Extra attention is needed
+        color: 008672  # Dark cyan color
+
+      # Question Label
+      # Used for issues that are queries or require clarification rather than reporting problems or suggesting changes.
+      - name: question
+        description: Further information is requested
+        color: cc317c  # Purple color
+
+      # Stale Label
+      # Applied to issues or pull requests that have been inactive for a certain period.
+      - name: stale
+        description: No recent activity on this issue or pull request
+        color: fbca04  # Yellow color
+
+      # Pinned Label
+      # Used for issues or pull requests that should remain at the top of the list and not be marked as stale.
+      - name: pinned
+        description: This issue or pull request is pinned for importance
+        color: 0052cc  # Dark blue color
+
+      # Security Label
+      # Applied to issues or pull requests related to security concerns or vulnerabilities.
+      - name: security
+        description: Addresses a security concern or vulnerability
+        color: d93f0b  # Dark orange color
+
+      # Triaged Label
+      # Applied to issues that have been automatically categorized by the triage system.
+      - name: triaged
+        description: This issue has been automatically triaged
+        color: 0e8a16  # Green color
+
   # The auto_triage_v1 plugin automatically applies labels to new issues based on their content.
   # It scans the issue title and body for the specified terms and applies the corresponding label.
   # This helps in quickly categorizing and prioritizing issues without manual intervention.
@@ -207,6 +206,11 @@ plugins:
 
   # The plugin automatically close PRs based on certain conditions
   auto_close_pr_v1:
+    # Determines whether the auto close plugin is active
+    enabled: false
+
+  # The plugin automatically close Issue based on certain conditions
+  auto_close_issue_v1:
     # Determines whether the auto close plugin is active
     enabled: false
 

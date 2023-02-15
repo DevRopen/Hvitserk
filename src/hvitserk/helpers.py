@@ -124,20 +124,20 @@ def get_local_parsed_configs(file_path):
     }
 
 
-def run_labels_v1_plugin(app, repo_name, labels_parsed_configs, logger):
+def run_labels_v1_plugin(app, repo_name, plugin_rules, logger):
     """
     Runs the LabelsV1Plugin with the provided configurations and logger.
 
     Args:
         app (App): The App instance.
         repo_name (str): The name of the repository.
-        labels_parsed_configs (dict): The parsed configuration for the labels plugin.
+        plugin_rules: Object containing labels rules.
         logger (logging.Logger): The logger instance.
 
     Returns:
         Any: The result of running the LabelsV1Plugin.
     """
-    labels_v1_plugin = LabelsV1Plugin(app, repo_name, labels_parsed_configs, logger)
+    labels_v1_plugin = LabelsV1Plugin(app, repo_name, plugin_rules, logger)
 
     return labels_v1_plugin.run()
 
