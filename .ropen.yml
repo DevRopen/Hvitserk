@@ -28,7 +28,11 @@ plugins:
   # Free Plugins
   # #############
 
+  # labels_v1 plugin
+  # ensures certain labels are present in your GitHub repository. This plugin can help maintain consistency and
+  # organization within the project by automatically checking for required labels and creating/updaing them as needed.
   labels_v1:
+    # Whether labels plugin enabled or not
     enabled: true
 
     labels:
@@ -80,91 +84,101 @@ plugins:
         description: This issue has been automatically triaged
         color: 0e8a16  # Green color
 
-  # The auto_triage_v1 plugin automatically applies labels to new issues based on their content.
+  # auto_triage_v1 plugin automatically applies labels to new issues based on their content.
   # It scans the issue title and body for the specified terms and applies the corresponding label.
   # This helps in quickly categorizing and prioritizing issues without manual intervention.
   # The 'enabled' flag allows easy activation/deactivation of the plugin without removing the configuration.
   auto_triage_v1:
-    # Determines whether the auto-triage functionality is active
-    enabled: true
-
-    # Determines whether the ticket/PR is triaged
-    triagedLabel: triaged
-
     # Defines the rules for automatic labeling of issues
     issues:
-      # Each rule specifies a label and associated terms
-      - label: bug
-        # If any of these terms are found in the issue title or body,
-        # the "bug" label will be applied
-        terms:
-          - "error"
-          - "crash"
-          - "broken"
-          - "fix"
+      # Whether Issue triage is enabled or not
+      enabled: true
 
-      - label: enhancement
-        # These terms trigger the "enhancement" label
-        terms:
-          - "feature request"
-          - "improvement"
-          - "enhance"
+      # Determines whether the ticket is triaged or not
+      triagedLabel: triaged
 
-      - label: help wanted
-        # These terms indicate that help is needed and will apply the "help wanted" label
-        terms:
-          - "help needed"
-          - "assistance required"
-          - "looking for contributors"
+      # Triage tickets with terms
+      with_terms:
+        # Each rule specifies a label and associated terms
+        - label: bug
+          # If any of these terms are found in the issue title or body,
+          # the "bug" label will be applied
+          terms:
+            - "error"
+            - "crash"
+            - "broken"
+            - "fix"
 
-      - label: question
-        # These phrases suggest that the issue is a question
-        terms:
-          - "how to"
-          - "is it possible"
-          - "can someone explain"
+        - label: enhancement
+          # These terms trigger the "enhancement" label
+          terms:
+            - "feature request"
+            - "improvement"
+            - "enhance"
 
-    # Defines the rules for automatic labeling of pulls
+        - label: help wanted
+          # These terms indicate that help is needed and will apply the "help wanted" label
+          terms:
+            - "help needed"
+            - "assistance required"
+            - "looking for contributors"
+
+        - label: question
+          # These phrases suggest that the issue is a question
+          terms:
+            - "how to"
+            - "is it possible"
+            - "can someone explain"
+
+    # Defines the rules for automatic labeling of pull requests
     pulls:
-      # Each rule specifies a label and associated terms
-      - label: bug
-        # If any of these terms are found in the issue title or body,
-        # the "bug" label will be applied
-        terms:
-          - "error"
-          - "crash"
-          - "broken"
-          - "fix"
+      # Whether PR triage is enabled or not
+      enabled: true
 
-      - label: enhancement
-        # These terms trigger the "enhancement" label
-        terms:
-          - "feature request"
-          - "improvement"
-          - "enhance"
+      # Determines whether the PR is triaged or not
+      triagedLabel: triaged
 
-      - label: help wanted
-        # These terms indicate that help is needed and will apply the "help wanted" label
-        terms:
-          - "help needed"
-          - "assistance required"
-          - "looking for contributors"
+      # Triage pull requests with terms
+      with_terms:
+        # Each rule specifies a label and associated terms
+        - label: bug
+          # If any of these terms are found in the issue title or body,
+          # the "bug" label will be applied
+          terms:
+            - "error"
+            - "crash"
+            - "broken"
+            - "fix"
 
-      - label: question
-        # These phrases suggest that the issue is a question
-        terms:
-          - "how to"
-          - "is it possible"
-          - "can someone explain"
+        - label: enhancement
+          # These terms trigger the "enhancement" label
+          terms:
+            - "feature request"
+            - "improvement"
+            - "enhance"
+
+        - label: help wanted
+          # These terms indicate that help is needed and will apply the "help wanted" label
+          terms:
+            - "help needed"
+            - "assistance required"
+            - "looking for contributors"
+
+        - label: question
+          # These phrases suggest that the issue is a question
+          terms:
+            - "how to"
+            - "is it possible"
+            - "can someone explain"
 
   # The stale plugin helps manage inactive issues and pull requests
   # It can automatically label, close, or perform other actions on stale items
   stale_v1:
-    # Determines whether the stale plugin is active
-    enabled: true
 
     # Configuration for stale issues
     issues:
+      # Whether stale plugin is enabled for Issues
+      enabled: true
       # Number of days of inactivity before an issue becomes stale
       daysUntilStale: 60
       # Number of days of inactivity before a stale issue is closed
@@ -181,8 +195,15 @@ plugins:
         This issue has been automatically closed due to inactivity. Please reopen
         if this issue is still relevant.
 
+      # List of labels that exempt an issue from being marked as stale
+      exemptLabels:
+        - "pinned"
+        - "security"
+
     # Configuration for stale pull requests
     pulls:
+      # Whether stale plugin is enabled for PRs
+      enabled: true
       # Number of days of inactivity before a pull request becomes stale
       daysUntilStale: 30
       # Number of days of inactivity before a stale pull request is closed
@@ -199,15 +220,41 @@ plugins:
         This pull request has been automatically closed due to inactivity. Please reopen
         if these changes are still relevant.
 
-    # List of labels that exempt an issue or pull request from being marked as stale
-    exemptLabels:
-      - "pinned"
-      - "security"
+      # List of labels that exempt a pull request from being marked as stale
+      exemptLabels:
+        - "pinned"
+        - "security"
 
   # The plugin automatically close PRs based on certain conditions
   auto_close_pr_v1:
-    # Determines whether the auto close plugin is active
-    enabled: false
+
+    # Configuration for merge conflicts
+    mergeConflict:
+      # Determines whether to close PRs with merge conflicts
+      enabled: true
+
+      # Comment to post when closing a PR due to merge conflicts
+      comment: >
+        This pull request has been automatically closed because it cannot be merged.
+        Please resolve the conflicts and reopen it if you still wish to proceed.
+
+      # Exemption list for important PRs
+      exemptLabels:
+        - pinned
+
+    # Label-based closure configuration
+    labels:
+      # Determines whether to close PRs with certain labels
+      enabled: true
+
+      # List of labels that trigger automatic closure
+      closeLabels:
+        - wontfix
+        - duplicate
+
+      # Exemption list for important PRs
+      exemptLabels:
+        - pinned
 
   # The plugin automatically close Issue based on certain conditions
   auto_close_issue_v1:
