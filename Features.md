@@ -4,9 +4,11 @@
 
 Ensures certain labels are present in your GitHub repository. This plugin can help maintain consistency and organization within the project by automatically checking for required labels and creating/updaing them as needed.
 
+
 ### Auto-Triage Plugin (`auto_triage_v1`)
 
 Automatically applies labels to new issues and PRs based on predefined terms in their titles or bodies.
+
 
 ### Stale Plugin (`stale_v1`):
 
