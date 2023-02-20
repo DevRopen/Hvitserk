@@ -34,6 +34,7 @@ from hvitserk.config import RemoteConfigReader
 def get_sys_logger():
     """
     Initializes and returns a system logger with the specified configuration.
+
     """
     logger = logging.getLogger(__name__)
     logger.setLevel(logging.DEBUG)
