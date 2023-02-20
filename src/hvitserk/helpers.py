@@ -22,14 +22,13 @@
 
 import logging
 import sys
-from hvitserk.api import Client
+
+from hvitserk.plugins import *
 from hvitserk.api import App
-from hvitserk.config import RemoteConfigReader
-from hvitserk.config import LocalConfigReader
+from hvitserk.api import Client
 from hvitserk.config import ConfigParser
-from hvitserk.plugins import LabelsV1Plugin
-from hvitserk.plugins import AutoTriageV1Plugin
-from hvitserk.plugins import StaleV1Plugin
+from hvitserk.config import LocalConfigReader
+from hvitserk.config import RemoteConfigReader
 
 
 def get_sys_logger():
@@ -77,6 +76,7 @@ def get_app(app_id, installation_id, private_key_path):
     )
 
     app.init()
+
     return app
 
 
@@ -126,7 +126,7 @@ def get_local_parsed_configs(file_path):
 
 def run_labels_v1_plugin(app, repo_name, plugin_rules, logger):
     """
-    Runs the LabelsV1Plugin with the provided configurations and logger.
+    Runs the Labels V1 Plugin with the provided configurations and logger.
 
     Args:
         app (App): The App instance.
@@ -135,11 +135,11 @@ def run_labels_v1_plugin(app, repo_name, plugin_rules, logger):
         logger (logging.Logger): The logger instance.
 
     Returns:
-        Any: The result of running the LabelsV1Plugin.
+        Any: The result of running the Labels V1 Plugin.
     """
-    labels_v1_plugin = LabelsV1Plugin(app, repo_name, plugin_rules, logger)
+    plugin = V1LabelsPlugin(app, repo_name, plugin_rules, logger)
 
-    return labels_v1_plugin.run()
+    return plugin.run()
 
 
 def run_auto_triage_v1_plugin(app, repo_name, plugin_rules, logger):
@@ -155,24 +155,42 @@ def run_auto_triage_v1_plugin(app, repo_name, plugin_rules, logger):
     Returns:
         bool: True if auto-triage completes successfully, False otherwise.
     """
-    auto_triage_v1_plugin = AutoTriageV1Plugin(app, repo_name, plugin_rules, logger)
+    plugin = V1AutoTriagePlugin(app, repo_name, plugin_rules, logger)
 
-    return auto_triage_v1_plugin.run()
+    return plugin.run()
 
 
-def run_stale_v1_plugin(app, repo_name, stale_rules, logger):
+def run_stale_v1_plugin(app, repo_name, plugin_rules, logger):
     """
     Run the Stale V1 Plugin for a given repository.
 
     Args:
         app (object): The application instance.
         repo_name (str): The name of the repository to run the plugin on.
-        stale_rules (dict): A dictionary containing the stale rules configuration.
+        plugin_rules (dict): A dictionary containing the stale rules configuration.
         logger (object): The logger object for logging messages.
 
     Returns:
-        The result of running the Stale V1 Plugin.
+        Any: The result of running the Stale V1 Plugin.
     """
-    stale_v1_plugin = StaleV1Plugin(app, repo_name, stale_rules, logger)
+    plugin = V1StalePlugin(app, repo_name, plugin_rules, logger)
 
-    return stale_v1_plugin.run()
+    return plugin.run()
+
+
+def run_auto_close_pull_request_v1_plugin(app, repo_name, plugin_rules, logger):
+    """
+    Run the Auto Close PR V1 Plugin for a given repository.
+
+    Args:
+        app (object): The application instance.
+        repo_name (str): The name of the repository to run the plugin on.
+        plugin_rules (dict): A dictionary containing the stale rules configuration.
+        logger (object): The logger object for logging messages.
+
+    Returns:
+        Any: The result of running the Auto Close PR V1 Plugin.
+    """
+    plugin = V1AutoClosePullRequestPlugin(app, repo_name, plugin_rules, logger)
+
+    return plugin.run()

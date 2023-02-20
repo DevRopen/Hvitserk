@@ -41,7 +41,7 @@ class V1LabelsConfig:
     """Configuration for the labels plugin."""
 
     enabled: bool
-    labels: List[Label]
+    labels: List[V1Label]
 
 
 @dataclass

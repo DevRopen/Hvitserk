@@ -91,7 +91,7 @@ class ConfigParser:
         # Extracting labels from the provided data
         labels = []
         for label_data in labels_v1_data.get("labels", []):
-            label = Label(
+            label = V1Label(
                 name=label_data.get("name"),
                 description=label_data.get("description"),
                 color=label_data.get("color"),

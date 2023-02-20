@@ -22,3 +22,18 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+
+from hvitserk.util import Logger
+
+
+class AutoClosePullRequest:
+    """Auto Close Pull Request Plugin"""
+
+    def __init__(self, app, repo_name, plugin_rules, logger):
+        self._app = app
+        self._repo_name = repo_name
+        self._plugin_rules = plugin_rules
+        self._logger = Logger().get_logger(__name__) if logger is None else logger
+
+    def run(self):
+        pass

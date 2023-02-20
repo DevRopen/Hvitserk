@@ -24,12 +24,5 @@
 # SOFTWARE.
 
 
-from .labels_v1 import LabelsV1Plugin
-from .auto_triage_v1 import AutoTriageV1Plugin
-from .stale_v1 import StaleV1Plugin
-from .auto_assign_reviewer_v1 import AutoAssignReviewerV1Plugin
-from .auto_close_pr_v1 import AutoClosePRV1Plugin
-from .auto_merge_v1 import AutoMergeV1Plugin
-from .auto_ai_description_generator_v1 import AutoAIDescriptionGeneratorV1Plugin
-from .auto_ai_respond_v1 import AutoAIRespondV1Plugin
-from .auto_ai_review_v1 import AutoAIReviewV1Plugin
+from .v1 import *
+from .v2 import *
