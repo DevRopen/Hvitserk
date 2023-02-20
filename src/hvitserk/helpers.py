@@ -23,8 +23,8 @@
 import logging
 import sys
 
-from hvitserk.plugins import *
 from hvitserk.api import App
+from hvitserk.plugins import *
 from hvitserk.api import Client
 from hvitserk.config import ConfigParser
 from hvitserk.config import LocalConfigReader
