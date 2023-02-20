@@ -34,9 +34,6 @@ from hvitserk.config import RemoteConfigReader
 def get_sys_logger():
     """
     Initializes and returns a system logger with the specified configuration.
-
-    Returns:
-        logging.Logger: A logger instance set to the DEBUG level with a console handler.
     """
     logger = logging.getLogger(__name__)
     logger.setLevel(logging.DEBUG)
@@ -56,14 +53,6 @@ def get_sys_logger():
 def get_app(app_id, installation_id, private_key_path):
     """
     Retrieves and initializes an App instance using the provided credentials.
-
-    Args:
-        app_id (int): The ID of the application.
-        installation_id (int): The ID of the installation.
-        private_key_path (str): The path to the private key file.
-
-    Returns:
-        App: An initialized App instance.
     """
     client = Client()
 
@@ -83,14 +72,6 @@ def get_app(app_id, installation_id, private_key_path):
 def get_remote_parsed_configs(app, repo_name, config_path=".github/ropen.yml"):
     """
     Retrieves, parses, and returns the remote configuration files.
-
-    Args:
-        app (App): The App instance.
-        repo_name (str): The name of the repository.
-        config_path (str, optional): The path to the configuration file. Defaults to ".github/ropen.yml".
-
-    Returns:
-        dict: A dictionary containing the unparsed configurations, parsed configurations, and the checksum.
     """
     rc = RemoteConfigReader(app, repo_name, config_path)
     result = rc.get_configs()
@@ -106,12 +87,6 @@ def get_remote_parsed_configs(app, repo_name, config_path=".github/ropen.yml"):
 def get_local_parsed_configs(file_path):
     """
     Retrieves, parses, and returns the local configuration files.
-
-    Args:
-        file_path (str): The path to the local configuration file.
-
-    Returns:
-        dict: A dictionary containing the unparsed configurations, parsed configurations, and the checksum.
     """
     lc = LocalConfigReader(file_path)
     result = lc.get_configs()
@@ -127,15 +102,6 @@ def get_local_parsed_configs(file_path):
 def run_labels_v1_plugin(app, repo_name, plugin_rules, logger):
     """
     Runs the Labels V1 Plugin with the provided configurations and logger.
-
-    Args:
-        app (App): The App instance.
-        repo_name (str): The name of the repository.
-        plugin_rules: Object containing labels rules.
-        logger (logging.Logger): The logger instance.
-
-    Returns:
-        Any: The result of running the Labels V1 Plugin.
     """
     plugin = V1LabelsPlugin(app, repo_name, plugin_rules, logger)
 
@@ -145,15 +111,6 @@ def run_labels_v1_plugin(app, repo_name, plugin_rules, logger):
 def run_auto_triage_v1_plugin(app, repo_name, plugin_rules, logger):
     """
     Run the Auto Triage V1 Plugin to label issues based on predefined rules.
-
-    Args:
-        app: Application object with configuration and API clients.
-        repo_name (str): Name of the repository to triage.
-        plugin_rules: Object containing auto-triage rules.
-        logger: Logger object for operations and errors.
-
-    Returns:
-        bool: True if auto-triage completes successfully, False otherwise.
     """
     plugin = V1AutoTriagePlugin(app, repo_name, plugin_rules, logger)
 
@@ -163,15 +120,6 @@ def run_auto_triage_v1_plugin(app, repo_name, plugin_rules, logger):
 def run_stale_v1_plugin(app, repo_name, plugin_rules, logger):
     """
     Run the Stale V1 Plugin for a given repository.
-
-    Args:
-        app (object): The application instance.
-        repo_name (str): The name of the repository to run the plugin on.
-        plugin_rules (dict): A dictionary containing the stale rules configuration.
-        logger (object): The logger object for logging messages.
-
-    Returns:
-        Any: The result of running the Stale V1 Plugin.
     """
     plugin = V1StalePlugin(app, repo_name, plugin_rules, logger)
 
@@ -181,15 +129,6 @@ def run_stale_v1_plugin(app, repo_name, plugin_rules, logger):
 def run_auto_close_pull_request_v1_plugin(app, repo_name, plugin_rules, logger):
     """
     Run the Auto Close PR V1 Plugin for a given repository.
-
-    Args:
-        app (object): The application instance.
-        repo_name (str): The name of the repository to run the plugin on.
-        plugin_rules (dict): A dictionary containing the stale rules configuration.
-        logger (object): The logger object for logging messages.
-
-    Returns:
-        Any: The result of running the Auto Close PR V1 Plugin.
     """
     plugin = V1AutoClosePullRequestPlugin(app, repo_name, plugin_rules, logger)
 
