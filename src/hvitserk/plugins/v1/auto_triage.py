@@ -42,28 +42,22 @@ class AutoTriage:
         self._logger.info(
             f"Running Auto Triage V1 Plugin for repository: {self._repo_name}"
         )
+        self._process_items("issues", self._plugin_rules.issues)
+        self._process_items("pulls", self._plugin_rules.pulls)
 
-        if self._plugin_rules.issues.enabled:
-            self._logger.info(
-                f"Auto Triage V1 Plugin is enabled for {self._repo_name} issues."
-            )
-            self._process_items("issues", self._plugin_rules.issues)
-        else:
+    def _process_items(self, item_type, rules):
+        if not self._plugin_rules.issues.enabled and item_type == "issues":
             self._logger.info(
                 f"Auto Triage V1 Plugin is disabled for {self._repo_name} issues. Skipping!"
             )
+            return
 
-        if self._plugin_rules.pulls.enabled:
+        if not self._plugin_rules.pulls.enabled and item_type == "pulls":
             self._logger.info(
-                f"Auto Triage V1 Plugin is enabled for {self._repo_name} pull requests."
+                f"Auto Triage V1 Plugin is disabled for {self._repo_name} pulls. Skipping!"
             )
-            self._process_items("pulls", self._plugin_rules.pulls)
-        else:
-            self._logger.info(
-                f"Auto Triage V1 Plugin is disabled for {self._repo_name} pull requests. Skipping!"
-            )
+            return
 
-    def _process_items(self, item_type, rules):
         items = self._issue.get_issues(self._repo_name, "open")
 
         for item in items:
