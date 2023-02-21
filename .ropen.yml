@@ -252,6 +252,9 @@ plugins:
         - wontfix
         - duplicate
 
+      comment: >
+        This pull request has been automatically closed due to its labels.
+
       # Exemption list for important PRs
       exemptLabels:
         - pinned
