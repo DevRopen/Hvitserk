@@ -23,10 +23,20 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from .stale import Stale as V1StalePlugin
-from .labels import Labels as V1LabelsPlugin
-from .auto_triage import AutoTriage as V1AutoTriagePlugin
-from .auto_close_pr import AutoClosePullRequest as V1AutoClosePullRequestPlugin
-from .auto_merge import AutoMerge as V1AutoMerge
-from .auto_close_issue import AutoCloseIssue as V1AutoCloseIssue
-from .auto_assign_reviewer import AutoAssignReviewer as V1AutoAssignReviewer
+from hvitserk.api import Issue
+from hvitserk.util import Logger
+
+
+class AutoCloseIssue:
+    """Auto Close Issue Plugin"""
+
+    def __init__(self, app, repo_name, plugin_rules, logger):
+        self._app = app
+        self._issue = Issue(self._app)
+        self._repo_name = repo_name
+        self._plugin_rules = plugin_rules
+        self._logger = Logger().get_logger(__name__) if logger is None else logger
+
+    def run(self):
+        """Run the Plugin"""
+        pass

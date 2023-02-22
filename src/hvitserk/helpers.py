@@ -134,3 +134,30 @@ def run_auto_close_pull_request_v1_plugin(app, repo_name, plugin_rules, logger):
     plugin = V1AutoClosePullRequestPlugin(app, repo_name, plugin_rules, logger)
 
     return plugin.run()
+
+
+def run_auto_merge_v1_plugin(app, repo_name, plugin_rules, logger):
+    """
+    Run the Auto Merge V1 Plugin for a given repository.
+    """
+    plugin = V1AutoMerge(app, repo_name, plugin_rules, logger)
+
+    return plugin.run()
+
+
+def run_auto_close_issue_v1_plugin(app, repo_name, plugin_rules, logger):
+    """
+    Run the Auto Close V1 Plugin for a given repository.
+    """
+    plugin = V1AutoCloseIssue(app, repo_name, plugin_rules, logger)
+
+    return plugin.run()
+
+
+def run_auto_assign_reviewer_v1_plugin(app, repo_name, plugin_rules, logger):
+    """
+    Run the Auto Assign Reviewer V1 Plugin for a given repository.
+    """
+    plugin = V1AutoAssignReviewer(app, repo_name, plugin_rules, logger)
+
+    return plugin.run()
